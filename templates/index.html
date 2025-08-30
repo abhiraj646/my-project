@@ -1,0 +1,531 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyGenie - AI-Powered Study Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            100: '#1e293b',
+                            200: '#0f172a',
+                            300: '#0a0f1d',
+                            400: '#020617'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+ <link rel="stylesheet" href="/static/css/styal.css">
+</head>
+<body class="min-h-screen">
+    <!-- 3D parallax background container -->
+    <div class="parallax-3d parallax-container" aria-hidden="true">
+        <div class="parallax-layer layer-1"></div>
+        <div class="parallax-layer layer-2"></div>
+        <div class="parallax-layer layer-3"></div>
+        <div class="floating-element element-1"></div>
+        <div class="floating-element element-2"></div>
+        <div class="floating-element element-3"></div>
+        <div class="floating-element element-4"></div>
+    </div>
+
+    <div class="content-wrapper">
+        <!-- Navigation -->
+    <nav class="glass-effect card-3d fixed top-0 w-full z-50 px-6 py-4">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-white"></i>
+                    </div>
+                    <span class="text-xl font-bold text-white">
+                        StudyGenie
+                    </span>
+                </div>
+                
+                <div class="hidden md:flex space-x-6">
+                    <a href="#dashboard" class="hover:text-purple-300 transition-colors">Dashboard</a>
+                    <a href="#upload" class="hover:text-purple-300 transition-colors">Upload</a>
+                    <a href="#quiz" class="hover:text-purple-300 transition-colors">Quiz</a>
+                    <a href="#flashcards" class="hover:text-purple-300 transition-colors">Flashcards</a>
+                    <a href="#progress" class="hover:text-purple-300 transition-colors">Progress</a>
+                </div>
+                
+                    <div class="flex items-center space-x-4">
+                        <button id="userButton" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 rounded-lg font-medium btn-3d">
+                            <i class="fas fa-user-graduate mr-2"></i>Login
+                        </button>
+                    </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="pt-32 pb-20 px-6">
+            <div class="max-w-7xl mx-auto text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 text-white">
+                    AI-Powered Study Assistant
+                </h1>
+                <p class="text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
+                    Transform your study materials into personalized summaries, quizzes, and flashcards. Let AI do the heavy lifting while you focus on learning.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                    <div class="glass-effect card-3d p-6 rounded-xl  ">
+                        <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-file-pdf text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Upload Content</h3>
+                        <p class="text-gray-400">PDFs, notes, or images with OCR support</p>
+                    </div>
+                    
+                    <div class="glass-effect card-3d p-6 rounded-xl  " style="animation-delay: 0.2s;">
+                        <div class="w-12 h-12 bg-pink-600 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-brain text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">AI Processing</h3>
+                        <p class="text-gray-400">Smart summarization and content analysis</p>
+                    </div>
+                    
+                    <div class="glass-effect card-3d p-6 rounded-xl  " style="animation-delay: 0.4s;">
+                        <div class="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-trophy text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Learn & Track</h3>
+                        <p class="text-gray-400">Quizzes, flashcards, and progress analytics</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section id="upload" class="py-20 px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12">Upload Your Study Material</h2>
+                
+                <div class="gradient-border">
+                    <div class="upload-dropzone glass-effect card-3d bg-dark-200 rounded-xl p-8 text-center cursor-pointer ">
+                        <div class="w-16 h-16 bg-dark-300 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-cloud-upload-alt text-purple-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Drag & Drop Files Here</h3>
+                        <p class="text-gray-400 mb-4">Supported formats: PDF, JPG, PNG, TXT</p>
+                        <button class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium btn-3d">
+                            <i class="fas fa-upload mr-2"></i>Browse Files
+                        </button>
+                        <!-- Generate button triggers AI processing for last uploaded file -->
+                        <button id="generateBtn" class="ml-4 bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg font-medium btn-3d hover:scale-105">
+                            <i class="fas fa-robot mr-2"></i>Generate
+                        </button>
+                        <input type="file" class="hidden" id="fileInput" accept=".pdf,.jpg,.png,.txt" multiple>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                    <div class="glass-effect card-3d p-6 rounded-xl ">
+                        <h4 class="font-semibold mb-3"><i class="fas fa-file-alt text-purple-400 mr-2"></i>Recent Uploads</h4>
+                    <div class="space-y-3" id="recentUploads">
+                        <div class="flex items-center justify-between p-3 bg-dark-300 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-pdf text-red-400 mr-3"></i>
+                                <span>Physics_Chapter_1.pdf</span>
+                            </div>
+                            <span class="text-sm text-gray-400">2 hours ago</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-dark-300 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-image text-green-400 mr-3"></i>
+                                <span>Chemistry_Notes.jpg</span>
+                            </div>
+                            <span class="text-sm text-gray-400">1 day ago</span>
+                        </div>
+                    </div>
+                    </div>
+                    
+                    <div class="glass-effect card-3d p-6 rounded-xl ">
+                        <h4 class="font-semibold mb-3"><i class="fas fa-cog text-blue-400 mr-2"></i>Processing Options</h4>
+                        <div class="space-y-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="rounded bg-dark-300 border-gray-600 text-purple-500" checked>
+                                <span class="ml-2">Generate Summary</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="rounded bg-dark-300 border-gray-600 text-purple-500" checked>
+                                <span class="ml-2">Create MCQs</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="rounded bg-dark-300 border-gray-600 text-purple-500" checked>
+                                <span class="ml-2">Generate Flashcards</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="py-20 px-6 bg-dark-300/50">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12">Your Study Dashboard</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Summary Card -->
+                    <div class="glass-effect card-3d rounded-xl p-6 lg:col-span-2 ">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-purple-400 mr-2"></i>Chapter Summary
+                        </h3>
+                    <div class="bg-dark-200 rounded-lg p-4 mb-4 card-3d" id="summaryContainer">
+                        <h4 class="font-semibold text-purple-300 mb-2">AI Generated Summary</h4>
+                        <p id="summaryContent" class="text-gray-300 text-sm">
+                            Newton's First Law: An object at rest stays at rest and an object in motion stays in motion unless acted upon by an unbalanced force. Objects resist changes to their state of motion; forces change motion.
+                        </p>
+                    </div>
+                    <div class="bg-dark-200 rounded-lg p-4 mt-4 card-3d" id="youtubeContainer">
+                        <h4 class="font-semibold text-purple-300 mb-2">Suggested Video</h4>
+                        <div id="youtubeEmbed" class="text-center">
+                            <!-- YouTube iframe will be injected here when available -->
+                            <p id="youtubeFallback" class="text-gray-400">No video suggested yet.</p>
+                        </div>
+                    </div>
+                    <div class="bg-dark-200 rounded-lg p-4 card-3d" id="keyPointsContainer">
+                        <h4 class="font-semibold text-purple-300 mb-2">Key Points</h4>
+                        <ul id="keyPointsList" class="text-sm space-y-2">
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3"></span>
+                                <span>Inertia: tendency of objects to resist changes in motion.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3"></span>
+                                <span>Force equals mass times acceleration (F = ma).</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3"></span>
+                                <span>Action and reaction pairs: every action has an equal and opposite reaction.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Short Answers (default visible) -->
+                    <div class="bg-dark-200 rounded-lg p-4 mt-4 card-3d" id="shortAnswersContainer">
+                        <h4 class="font-semibold text-purple-300 mb-2">Short Answers</h4>
+                        <ul id="shortAnswersList" class="text-sm space-y-2">
+                            <li>
+                                <strong>State Newton's Second Law.</strong>
+                                <div class="text-gray-300">Force equals mass times acceleration (F = ma).</div>
+                            </li>
+                            <li>
+                                <strong>Define inertia.</strong>
+                                <div class="text-gray-300">Inertia is the tendency of objects to resist changes in motion.</div>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
+                    
+                    <!-- Progress Stats -->
+                    <div class="glass-effect card-3d rounded-xl p-6 ">
+                        <h3 class="text-xl font-semibold mb-6 flex items-center">
+                            <i class="fas fa-chart-line text-blue-400 mr-2"></i>Study Progress
+                        </h3>
+                        
+                        <div class="flex items-center justify-center mb-6">
+                            <div class="relative w-32 h-32">
+                                <svg class="w-full h-full" viewBox="0 0 100 100">
+                                    <circle class="text-dark-200 stroke-current" stroke-width="10" cx="50" cy="50" r="40" fill="transparent"></circle>
+                                    <circle class="text-purple-500 stroke-current" stroke-width="10" stroke-linecap="round" cx="50" cy="50" r="40" fill="transparent"
+                                            stroke-dasharray="251.2" stroke-dashoffset="175.84" transform="rotate(-90 50 50)"></circle>
+                                    <text x="50" y="55" text-anchor="middle" class="text-2xl font-bold fill-white">70%</text>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm">Physics Mastery</span>
+                                    <span class="text-sm">85%</span>
+                                </div>
+                                <div class="w-full bg-dark-200 rounded-full h-2">
+                                    <div class="bg-green-500 h-2 rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm">Chemistry</span>
+                                    <span class="text-sm">60%</span>
+                                </div>
+                                <div class="w-full bg-dark-200 rounded-full h-2">
+                                    <div class="bg-yellow-500 h-2 rounded-full" style="width: 60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz" class="py-20 px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12">Practice Quiz</h2>
+                
+                <div class="glass-effect rounded-xl p-8 ">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-sm text-gray-400" id="questionCounter">Question 3 of 5</span>
+                        <div class="flex space-x-2">
+                            <span class="px-3 py-1 bg-purple-600 rounded-full text-sm" id="quizSubject">Physics</span>
+                            <span class="px-3 py-1 bg-blue-600 rounded-full text-sm" id="quizType">MCQ</span>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold mb-6" id="questionText">
+                        According to Newton's Second Law of Motion, what is the relationship between force, mass, and acceleration?
+                    </h3>
+                    
+                    <div class="space-y-4 mb-8" id="quizOptions">
+                        <label class="flex items-center p-4 bg-dark-200 rounded-lg cursor-pointer hover:bg-dark-300 transition-colors ">
+                            <input type="radio" name="quiz-answer" value="A" class="mr-3 accent-purple-500">
+                            <span>Force = Mass × Acceleration</span>
+                        </label>
+                        
+                        <label class="flex items-center p-4 bg-dark-200 rounded-lg cursor-pointer hover:bg-dark-300 transition-colors ">
+                            <input type="radio" name="quiz-answer" value="B" class="mr-3 accent-purple-500">
+                            <span>Mass = Force × Acceleration</span>
+                        </label>
+                        
+                        <label class="flex items-center p-4 bg-dark-200 rounded-lg cursor-pointer hover:bg-dark-300 transition-colors ">
+                            <input type="radio" name="quiz-answer" value="C" class="mr-3 accent-purple-500">
+                            <span>Acceleration = Force × Mass</span>
+                        </label>
+                        
+                        <label class="flex items-center p-4 bg-dark-200 rounded-lg cursor-pointer hover:bg-dark-300 transition-colors ">
+                            <input type="radio" name="quiz-answer" value="D" class="mr-3 accent-purple-500">
+                            <span>Force = Mass ÷ Acceleration</span>
+                        </label>
+                    </div>
+                    
+                    <div class="flex justify-between">
+                        <button id="prevQuestionBtn" class="px-6 py-2 border border-gray-600 rounded-lg hover:bg-dark-300 transition-colors ">
+                            <i class="fas fa-arrow-left mr-2"></i>Previous
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                    <div class="glass-effect rounded-xl p-6 text-center ">
+                        <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-check text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Correct Answers</h4>
+                        <p class="text-2xl font-bold text-green-400" id="correctAnswers">8/10</p>
+                    </div>
+                    
+                    <div class="glass-effect rounded-xl p-6 text-center ">
+                        <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-clock text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Average Time</h4>
+                        <p class="text-2xl font-bold text-blue-400">45s</p>
+                    </div>
+                    
+                    <div class="glass-effect rounded-xl p-6 text-center ">
+                        <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-trophy text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Best Score</h4>
+                        <p class="text-2xl font-bold text-purple-400">95%</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flashcards Section -->
+        <section id="flashcards" class="py-20 px-6 bg-dark-300/50">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12">Interactive Flashcards</h2>
+                
+                <div class="glass-effect card-3d rounded-xl p-8 text-center ">
+                    <div class="relative h-64 mb-8 ">
+                        <div class="flashcard w-full h-full relative" id="currentFlashcard">
+                            <div class="flashcard-front glass-effect rounded-xl flex items-center justify-center p-6 cursor-pointer">
+                                <div>
+                                    <h3 class="text-2xl font-semibold mb-4">Newton's First Law</h3>
+                                    <p class="text-gray-300">Click to reveal definition</p>
+                                </div>
+                            </div>
+                            <div class="flashcard-back glass-effect rounded-xl flex items-center justify-center p-6">
+                                <p class="text-lg">An object at rest stays at rest and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-center space-x-4">
+                        <button class="px-6 py-2 border border-gray-600 rounded-lg hover:bg-dark-200 transition-colors btn-3d" id="prevCardBtn">
+                            <i class="fas fa-arrow-left mr-2"></i>Previous
+                        </button>
+                        <button class="px-6 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium btn-3d hover:scale-105" id="flipCardBtn">
+                            <i class="fas fa-sync-alt mr-2"></i>Flip Card
+                        </button>
+                        <button class="px-6 py-2 border border-gray-600 rounded-lg hover:bg-dark-200 transition-colors btn-3d" id="nextCardBtn">
+                            Next<i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="mt-6 flex justify-center space-x-2">
+                        <span class="w-3 h-3 bg-purple-500 rounded-full"></span>
+                        <span class="w-3 h-3 bg-gray-600 rounded-full"></span>
+                        <span class="w-3 h-3 bg-gray-600 rounded-full"></span>
+                        <span class="w-3 h-3 bg-gray-600 rounded-full"></span>
+                        <span class="w-3 h-3 bg-gray-600 rounded-full"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Analytics -->
+        <section id="progress" class="py-20 px-6">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12">Progress Analytics</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="glass-effect rounded-xl p-6 ">
+                        <h3 class="text-xl font-semibold mb-6 flex items-center">
+                            <i class="fas fa-chart-bar text-green-400 mr-2"></i>Performance Over Time
+                        </h3>
+                        <div class="h-64 flex items-end space-x-2 justify-center">
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 bg-green-500 rounded-t" style="height: 120px;"></div>
+                                <span class="text-sm mt-2">Mon</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 bg-green-500 rounded-t" style="height: 150px;"></div>
+                                <span class="text-sm mt-2">Tue</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 bg-green-500 rounded-t" style="height: 90px;"></div>
+                                <span class="text-sm mt-2">Wed</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 bg-green-500 rounded-t" style="height: 180px;"></div>
+                                <span class="text-sm mt-2">Thu</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 bg-green-500 rounded-t" style="height: 160px;"></div>
+                                <span class="text-sm mt-2">Fri</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 bg-green-500 rounded-t" style="height: 140px;"></div>
+                                <span class="text-sm mt-2">Sat</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 bg-green-500 rounded-t" style="height: 110px;"></div>
+                                <span class="text-sm mt-2">Sun</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect rounded-xl p-6 ">
+                        <h3 class="text-xl font-semibold mb-6 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-400 mr-2"></i>Weak Areas
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>Thermodynamics</span>
+                                    <span>45%</span>
+                                </div>
+                                <div class="w-full bg-dark-200 rounded-full h-3">
+                                    <div class="bg-red-500 h-3 rounded-full" style="width: 45%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>Quantum Mechanics</span>
+                                    <span>55%</span>
+                                </div>
+                                <div class="w-full bg-dark-200 rounded-full h-3">
+                                    <div class="bg-yellow-500 h-3 rounded-full" style="width: 55%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>Electromagnetism</span>
+                                    <span>65%</span>
+                                </div>
+                                <div class="w-full bg-dark-200 rounded-full h-3">
+                                    <div class="bg-blue-500 h-3 rounded-full" style="width: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="glass-effect py-12 px-6 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div>
+                        <div class="flex items-center space-x-2 mb-4">
+                            <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-graduation-cap text-white"></i>
+                            </div>
+                            <span class="text-xl font-bold">StudyGenie</span>
+                        </div>
+                        <p class="text-gray-400">AI-powered study assistant for modern learners.</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold mb-4">Features</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#" class="hover:text-purple-300">PDF Processing</a></li>
+                            <li><a href="#" class="hover:text-purple-300">AI Summarization</a></li>
+                            <li><a href="#" class="hover:text-purple-300">Quiz Generator</a></li>
+                            <li><a href="#" class="hover:text-purple-300">Flashcards</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold mb-4">Resources</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#" class="hover:text-purple-300">Documentation</a></li>
+                            <li><a href="#" class="hover:text-purple-300">API Reference</a></li>
+                            <li><a href="#" class="hover:text-purple-300">Tutorials</a></li>
+                            <li><a href="#" class="hover:text-purple-300">Support</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold mb-4">Connect</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 bg-dark-300 rounded-lg flex items-center justify-center hover:bg-purple-600 transition-colors">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-dark-300 rounded-lg flex items-center justify-center hover:bg-purple-600 transition-colors">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-dark-300 rounded-lg flex items-center justify-center hover:bg-purple-600 transition-colors">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                    <p>&copy; 2024 StudyGenie. All rights reserved.</p>
+                    <h1><p class="mt-2 text-sm">TEAM VAJRA — Abhiraj Singh Chauahan</p></h1>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript for Backend Integration -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyGenie - Sign Up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styal.css">
+</head>
+<body class="bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 min-h-screen flex items-center justify-center">
+    <div class="glass-effect card-3d bg-white/6 backdrop-blur-md rounded-2xl p-8 w-full max-w-md mx-4 border border-white/20">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-white mb-2">StudyGenie</h1>
+            <p class="text-gray-300">Create Your Account</p>
+        </div>
+<link rel="stylesheet" href="/static/css/styal.css">
+        <form id="signupForm" class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Username</label>
+                <input type="text" name="username" required 
+                       class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                       placeholder="Choose a username">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                <input type="email" name="email" required 
+                       class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                       placeholder="Enter your email">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                <input type="password" name="password" required 
+                       class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                       placeholder="Create a password">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Confirm Password</label>
+                <input type="password" name="confirmPassword" required 
+                       class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                       placeholder="Confirm your password">
+            </div>
+
+            <button type="submit" 
+                    class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all duration-200 btn-3d hover:scale-105">
+                <i class="fas fa-user-plus mr-2"></i>Create Account
+            </button>
+        </form>
+
+        <div class="text-center mt-6">
+            <p class="text-gray-300">Already have an account? 
+                <a href="/login" class="text-purple-400 hover:text-purple-300 font-semibold">Login</a>
+            </p>
+        </div>
+
+        <div id="notification" class="hidden fixed top-4 right-4 px-6 py-3 rounded-lg text-white font-semibold"></div>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const password = formData.get('password');
+            const confirmPassword = formData.get('confirmPassword');
+            
+            if (password !== confirmPassword) {
+                showNotification('Passwords do not match', 'error');
+                return;
+            }
+
+            const data = {
+                username: formData.get('username'),
+                email: formData.get('email'),
+                password: password
+            };
+
+            try {
+                const response = await fetch('/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showNotification('Account created successfully! Redirecting...', 'success');
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1000);
+                } else {
+                    showNotification(result.error, 'error');
+                }
+            } catch (error) {
+                showNotification('Signup failed. Please try again.', 'error');
+            }
+        });
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'fixed top-4 right-4 px-6 py-3 rounded-lg text-white font-semibold ';
+            
+            if (type === 'success') {
+                notification.className += 'bg-green-600';
+            } else if (type === 'error') {
+                notification.className += 'bg-red-600';
+            }
+            
+            notification.classList.remove('hidden');
+            
+            setTimeout(() => {
+                notification.classList.add('hidden');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

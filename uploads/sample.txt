@@ -1,0 +1,5 @@
+Photosynthesis is the process by which green plants and some other organisms use sunlight to synthesize foods from carbon dioxide and water. Photosynthesis in plants generally involves the green pigment chlorophyll and generates oxygen as a byproduct.
+
+Light-dependent reactions take place in the thylakoid membranes and convert light energy into chemical energy (ATP and NADPH). The Calvin cycle (light-independent reactions) uses ATP and NADPH to fix carbon dioxide into sugars.
+
+Key points: chlorophyll, thylakoid, ATP, NADPH, Calvin cycle, carbon fixation.
